@@ -9,10 +9,15 @@
   "dependencies": {},
   "devDependencies": {
     "buster": "0.7.18",
+    "grunt": "0.4.5",
+    "grunt-buster": "0.3.2",
+    "jscs": "1.11.3",
     "phantomjs": "1.9.15"
   },
   "scripts": {
-    "test": "npm test"
+    "lint": "jscs **/*.js",
+    "buster": "grunt buster",
+    "test": "npm run lint && npm run buster"
   },
   "repository": {
     "type": "git",
