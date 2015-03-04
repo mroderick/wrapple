@@ -1,0 +1,26 @@
+{
+  "name": "wrapple",
+  "version": "0.1.0",
+  "homepage": "https://github.com/mroderick/wrapple",
+  "authors": [
+    "Morgan Roderick <morgan@roderick.dk>"
+  ],
+  "description": "Wrapper for browser natives to allow stubbing in unit tests.",
+  "main": "lib/wrapple.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "unit test",
+    "test",
+    "browser natives"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test"
+  ]
+}
