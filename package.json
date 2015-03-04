@@ -9,6 +9,7 @@
   "dependencies": {},
   "devDependencies": {
     "buster": "0.7.18",
+    "buster-istanbul": "0.1.13",
     "grunt": "0.4.5",
     "grunt-buster": "0.3.2",
     "jscs": "1.11.3",

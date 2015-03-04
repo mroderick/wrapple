@@ -1,4 +1,4 @@
-# wrapple
+# wrapple ![travis build](https://img.shields.io/travis/mroderick/wrapple.svg) ![dependencies](https://img.shields.io/david/mroderick/wrapple.svg) ![dependencies](https://img.shields.io/david/dev/mroderick/wrapple.svg)
 Wrapper for browser natives to allow stubbing in unit tests.
 
 Accessing natives through a thin wrapper makes stubbing possible, where it would otherwise be impossible.
