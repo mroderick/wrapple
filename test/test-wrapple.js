@@ -4,8 +4,8 @@
     var assert = buster.assert,
         wrap = window.nativeWrap;
 
-    buster.testCase('location method', {
-        'should return window.location': function () {
+    buster.testCase('wrapple api', {
+        'should have a location method that returns window.location': function () {
             assert.same(wrap.location(), window.location);
         }
     });
