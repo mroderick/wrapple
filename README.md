@@ -52,18 +52,10 @@ var hostname = wrap.add('location').hostname;
 
 ## ES5.1 required
 
-wrapple uses [`Object.create`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create) to create an object without any methods.
+wrapple uses [`Object.create`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create) to create an object without *any* properties.
 
 If you need to support old browsers, you should probably ensure that `Object.create` has been polyfilled.
 
-
-## Available wrappers
-
-Not **all** browser natives on the `window` object in all browsers are wrapped.
-
-Some functions like `escape` seem unlikely to ever need to be stubbed during tests. Some browser natives are marked as deprecated, experimental, etc. Some might also have been missed out.
-
-If you find that there are globals that you need to wrap that wrapple doens't yet support, please [contribute a pull request](CONTRIBUTING.md) and help improve wrapple for everyone.
 
 ## License
 
