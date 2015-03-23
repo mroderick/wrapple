@@ -33,7 +33,13 @@ sinon.stub(wrap, 'location', function(){
 
 There is no step three, you're done
 
+## Available wrappers
 
+Not **all** browser natives on the `window` object in all browsers are wrapped.
+
+Some browser natives are marked as deprecated, experimental, etc. Some might also have been missed out.
+
+If you find that there are globals that you need to wrap that wrapple doens't yet support, please [contribute a pull request](CONTRIBUTING.md) and help improve wrapple for everyone.
 
 ## License
 
