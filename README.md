@@ -15,6 +15,10 @@ Access browser natives through wrapple
 // use whatever local name you like
 var wrap = require('wrapple');
 
+// ensure that wrapple has wrapped the property you're interested in
+// this is [idempotent](http://en.wikipedia.org/wiki/Idempotence), call it many times with no ill effects
+wrap.add('location');
+
 var hostname = wrap.location().hostname;
 ```
 
@@ -32,6 +36,26 @@ sinon.stub(wrap, 'location', function(){
 ### Step 3
 
 There is no step three, you're done
+
+## Methods
+
+```javascript
+// add, adds a wrapped property to the wrapple api
+wrap.add('location');
+
+// reset, removes all wrapper methods from wrapple api
+wrap.reset();
+
+// add and use immediately
+var hostname = wrap.add('location').hostname;
+```
+
+## ES5.1 required
+
+wrapple uses [`Object.create`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create) to create an object without any methods.
+
+If you need to support old browsers, you should probably ensure that `Object.create` has been polyfilled.
+
 
 ## Available wrappers
 
