@@ -26,7 +26,7 @@ $ npm run lint
 
 You can use [Js Beautifier](https://github.com/beautify-web/js-beautify) with the provided `.jsbeautifyrc` to format code to match the rules set out in the JSCS preset.
 
-There's plenty of editor plugins for both of these tools. Here's what I use with Sublime Text 3: [JsFormat](https://github.com/jdc0589/JsFormat) for re-formatting code and [SublimeLinter](http://www.sublimelinter.com/) with the [SublimeLinter-jscs plugin](https://github.com/SublimeLinter/SublimeLinter-jscs) for linting.
+There are plenty of editor plugins for both of these tools. Here's what I use with Sublime Text 3: [JsFormat](https://github.com/jdc0589/JsFormat) for re-formatting code and [SublimeLinter](http://www.sublimelinter.com/) with the [SublimeLinter-jscs plugin](https://github.com/SublimeLinter/SublimeLinter-jscs) for linting.
 
 ## Unit Tests
 

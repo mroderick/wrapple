@@ -3,6 +3,9 @@ Wrapper for browser natives to allow stubbing in unit tests.
 
 Accessing natives through a thin wrapper makes stubbing possible, where it would otherwise be impossible.
 
+* [Firefox doesn't allow writing to localStorage](https://github.com/cjohansen/Sinon.JS/issues/662)
+* [Old-IE doesn't like having globals overwritten](https://github.com/algolia/writable-window-method)
+
 ## Usage
 
 Access browser natives through wrapple
@@ -30,6 +33,12 @@ sinon.stub(wrap, 'location', function(){
 
 There is no step three, you're done
 
+
+
 ## License
 
 MIT: http://mrgnrdrck.mit-license.org
+
+## wrapple.jp
+
+In no way affiliated with, but admiring [wrapple.jp](http://www.wrapple.jp)
