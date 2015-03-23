@@ -43,11 +43,12 @@ There is no step three, you're done
 // add, adds a wrapped property to the wrapple api
 wrap.add('location');
 
+// add and use immediately
+var hostname = wrap.add('location').hostname;
+
 // reset, removes all wrapper methods from wrapple api
 wrap.reset();
 
-// add and use immediately
-var hostname = wrap.add('location').hostname;
 ```
 
 ## ES5.1 required
