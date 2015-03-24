@@ -8,6 +8,18 @@ Accessing natives through a thin wrapper makes stubbing possible, where it would
 
 You can use it with pretty much all globals defined on the `window` object.
 
+## Compatibility
+
+`wrapple` should be able to run in most environments that can execute JavaScript
+
+### ES5.1 required
+wrapple uses a couple of methods from ES5.1
+
+* [`Array.prototype.indexOf()`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
+* [`Array.prototype.forEach()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+
+If you need to support old browsers, you should ensure that these have been polyfilled.
+
 ## Usage
 
 Access browser natives through wrapple
@@ -79,7 +91,7 @@ wrap.reset();
 ## Unwrappable methods
 These **globals** on the `window` object are not wrappable, as creating the returning methods on `wrapple` would interfere with the `wrap` function.
 
-* `constructor`,
+* `constructor`
 * `isPrototypeOf`
 * `length`
 * `name`
@@ -88,12 +100,6 @@ These **globals** on the `window` object are not wrappable, as creating the retu
 * `toString`
 
 That shouldn't be too much of a problem, as they seem unlikely targets for stubbing.
-
-## ES5.1 required
-
-wrapple uses [`Object.create`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create) to create an object without *any* properties.
-
-If you need to support old browsers, you should probably ensure that `Object.create` has been polyfilled.
 
 ## Links
 
