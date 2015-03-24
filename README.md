@@ -1,10 +1,12 @@
 # wrapple ![travis build](https://img.shields.io/travis/mroderick/wrapple.svg) ![dependencies](https://img.shields.io/david/mroderick/wrapple.svg) ![dependencies](https://img.shields.io/david/dev/mroderick/wrapple.svg)
-Wrapper for browser natives to allow stubbing in unit tests.
+Dependency free wrapping function for browser natives to allow stubbing in unit tests.
 
 Accessing natives through a thin wrapper makes stubbing possible, where it would otherwise be impossible.
 
 * [Firefox doesn't allow writing to localStorage](https://github.com/cjohansen/Sinon.JS/issues/662)
 * [Old-IE doesn't like having globals overwritten](https://github.com/algolia/writable-window-method)
+
+You can use it with pretty much all globals defined on the `window` object.
 
 ## Usage
 
@@ -16,40 +18,76 @@ Access browser natives through wrapple
 var wrap = require('wrapple');
 
 // ensure that wrapple has wrapped the property you're interested in
-// this is [idempotent](http://en.wikipedia.org/wiki/Idempotence), call it many times with no ill effects
-wrap.add('location');
+// this is idempotent, call it many times with no ill effects
+wrap('location');
 
-var hostname = wrap.location().hostname;
+// directly use the returned global
+var hostname = wrap('location').hostname;
 ```
 
 ### Step 2
 
-Stub wrapple methods in your tests
+Now that your application code is using wrapped globals, you can target the wrapper function for stubbing, spying, etc.
+
 ```javascript
-sinon.stub(wrap, 'location', function(){
+var stub = sinon.stub(wrap, 'location', function(){
     return {
         hostname: 'wrapple.example.com'
     };
 });
+
+// ...
 ```
 
 ### Step 3
 
-There is no step three, you're done
+Tidy up your tests
+
+```javascript
+// using sinon
+stub.restore();
+
+// or using wrapple.reset
+wrap.reset();
+```
 
 ## Methods
 
+### `wrap`
 ```javascript
-// add, adds a wrapped property to the wrapple api
-wrap.add('location');
+// wrap - adds a wrapped property method to the wrapple api
+// returns a function that returns window.location
+// also creates wrap.location method as target for stubbing
+wrap('location');
 
 // add and use immediately
-var hostname = wrap.add('location').hostname;
+var hostname = wrap('location').hostname;
 
+// use via dedicated method
+wrap('location');
+// ...
+var hostname = wrap.location().hostname;
+```
+
+### `reset`
+```javascript
 // reset, removes all wrapper methods from wrapple api
 wrap.reset();
-
 ```
+
+
+## Unwrappable methods
+These **globals** on the `window` object are not wrappable, as creating the returning methods on `wrapple` would interfere with the `wrap` function.
+
+* `constructor`,
+* `isPrototypeOf`
+* `length`
+* `name`
+* `propertyIsEnumerable`
+* `toLocaleString`
+* `toString`
+
+That shouldn't be too much of a problem, as they seem unlikely targets for stubbing.
 
 ## ES5.1 required
 
@@ -57,6 +95,10 @@ wrapple uses [`Object.create`](https://developer.mozilla.org/en-US/docs/Web/Java
 
 If you need to support old browsers, you should probably ensure that `Object.create` has been polyfilled.
 
+## Links
+
+* [Sinon.JS](http://sinonjs.org)
+* [Test-Driven JavaScript Development](http://tddjs.com)
 
 ## License
 

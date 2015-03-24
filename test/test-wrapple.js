@@ -232,42 +232,53 @@
             wrap.reset();
         },
 
-        'add method should wrap window properties': function () {
-            var name,
+        'wrap method should wrap window properties': function () {
+            var defaultFunctionMembers = [
+                    'constructor',
+                    'isPrototypeOf',
+                    'length',
+                    'name',
+                    'propertyIsEnumerable',
+                    'toLocaleString',
+                    'toString'
+                ],
+                name,
                 i;
 
             for (i = 0; i < properties.length; i++) {
                 name = properties[i];
 
-                refute.isFunction(wrap[name], name);
-
-                wrap.add(name);
-                assert.isFunction(wrap[name]);
-                assert.same(wrap[name](), window[name], name);
+                // our wrap function comes with a few functions out of the box
+                if (defaultFunctionMembers.indexOf(name) === -1) {
+                    refute.isFunction(wrap[name], name);
+                    wrap(name);
+                    assert.isFunction(wrap[name]);
+                    assert.same(wrap[name](), window[name], name);
+                }
             }
 
             assert.equals(i, properties.length);
         },
 
-        'add method should be idempotent' : function () {
+        'wrap method should be idempotent' : function () {
             var name = 'location',
                 func1, func2;
 
             refute.isFunction(wrap[name]);
 
-            wrap.add(name);
+            wrap(name);
             assert.isFunction(wrap[name]);
             func1 = wrap[name];
 
-            wrap.add(name);
+            wrap(name);
             func2 = wrap[name];
 
             assert.same(func1, func2);
         },
 
-        'add method should return the wrapped property': function () {
+        'wrap method should return the wrapped property': function () {
             var name = 'location',
-                prop = wrap.add(name);
+                prop = wrap(name);
 
             assert.same(prop, window[name]);
         },
@@ -277,11 +288,10 @@
 
             refute.isFunction(wrap[name]);
 
-            wrap.add(name);
+            wrap(name);
             assert.isFunction(wrap[name]);
 
             wrap.reset();
-
             refute.isFunction(wrap[name]);
         }
     });
