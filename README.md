@@ -1,10 +1,24 @@
 # wrapple ![travis build](https://img.shields.io/travis/mroderick/wrapple.svg) ![dependencies](https://img.shields.io/david/mroderick/wrapple.svg) ![dependencies](https://img.shields.io/david/dev/mroderick/wrapple.svg)
-Wrapper for browser natives to allow stubbing in unit tests.
+Dependency free wrapping function for browser natives to allow stubbing in unit tests.
 
 Accessing natives through a thin wrapper makes stubbing possible, where it would otherwise be impossible.
 
 * [Firefox doesn't allow writing to localStorage](https://github.com/cjohansen/Sinon.JS/issues/662)
 * [Old-IE doesn't like having globals overwritten](https://github.com/algolia/writable-window-method)
+
+You can use it with pretty much all globals defined on the `window` object.
+
+## Compatibility
+
+`wrapple` should be able to run in most environments that can execute JavaScript
+
+### ES5.1 required
+wrapple uses a couple of methods from ES5.1
+
+* [`Array.prototype.indexOf()`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
+* [`Array.prototype.forEach()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+
+If you need to support old browsers, you should ensure that these have been polyfilled.
 
 ## Usage
 
@@ -15,31 +29,82 @@ Access browser natives through wrapple
 // use whatever local name you like
 var wrap = require('wrapple');
 
-var hostname = wrap.location().hostname;
+// ensure that wrapple has wrapped the property you're interested in
+// this is idempotent, call it many times with no ill effects
+wrap('location');
+
+// directly use the returned global
+var hostname = wrap('location').hostname;
 ```
 
 ### Step 2
 
-Stub wrapple methods in your tests
+Now that your application code is using wrapped globals, you can target the wrapper function for stubbing, spying, etc.
+
 ```javascript
-sinon.stub(wrap, 'location', function(){
+var stub = sinon.stub(wrap, 'location', function(){
     return {
         hostname: 'wrapple.example.com'
     };
 });
+
+// ...
 ```
 
 ### Step 3
 
-There is no step three, you're done
+Tidy up your tests
 
-## Available wrappers
+```javascript
+// using sinon
+stub.restore();
 
-Not **all** browser natives on the `window` object in all browsers are wrapped.
+// or using wrapple.reset
+wrap.reset();
+```
 
-Some functions like `escape` seem unlikely to ever need to be stubbed during tests. Some browser natives are marked as deprecated, experimental, etc. Some might also have been missed out.
+## Methods
 
-If you find that there are globals that you need to wrap that wrapple doens't yet support, please [contribute a pull request](CONTRIBUTING.md) and help improve wrapple for everyone.
+### `wrap`
+```javascript
+// wrap - adds a wrapped property method to the wrapple api
+// returns a function that returns window.location
+// also creates wrap.location method as target for stubbing
+wrap('location');
+
+// add and use immediately
+var hostname = wrap('location').hostname;
+
+// use via dedicated method
+wrap('location');
+// ...
+var hostname = wrap.location().hostname;
+```
+
+### `reset`
+```javascript
+// reset, removes all wrapper methods from wrapple api
+wrap.reset();
+```
+
+
+## Unwrappable methods
+These **globals** on the `window` object are not wrappable, as creating the returning methods on `wrapple` would interfere with the `wrap` function.
+
+* `constructor`
+* `isPrototypeOf`
+* `length`
+* `name`
+* `propertyIsEnumerable`
+* `toLocaleString`
+* `toString`
+
+That shouldn't be too much of a problem, as they seem unlikely targets for stubbing.
+
+## Links
+
+* [Sinon.JS](http://sinonjs.org)
+* [Test-Driven JavaScript Development](http://tddjs.com)
 
 ## License
 
