@@ -8,6 +8,10 @@ Accessing natives through a thin wrapper makes stubbing possible, where it would
 
 You can use it with pretty much all globals defined on the `window` object.
 
+#### Link Seam
+
+In [Working Effectively with Legacy Code](http://www.informit.com/store/working-effectively-with-legacy-code-9780131177055), Michael Feathers describes *[Seams](http://www.informit.com/articles/article.aspx?p=359417)*. In the vernacular of that book, `wrapple` would most likely be described as a *Link Seam*.
+
 ## Compatibility
 
 `wrapple` should be able to run in most environments that can execute JavaScript
