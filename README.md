@@ -24,6 +24,10 @@ wrapple uses a couple of methods from ES5.1
 
 If you need to support old browsers, you should ensure that these have been polyfilled.
 
+### Node.js supported
+
+`wrapple` can work in Node.js environments just like in browser environments.
+
 ## Usage
 
 Access browser natives through wrapple
