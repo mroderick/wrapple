@@ -9,4 +9,5 @@ before_install:
   - npm config set strict-ssl false
 
 script:
+  - npm run lint
   - npm test
